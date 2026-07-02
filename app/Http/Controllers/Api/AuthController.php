@@ -32,7 +32,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request){
 
         try{
-            $result = $this->authservice->login($request->Validated());
+            $result = $this->authservice->login($request->validated());
 
             return Response()->json([
                 'message'=>'Login Succesfull',
@@ -43,7 +43,7 @@ class AuthController extends Controller
         }catch(\Exception $e){
             return Response()->json([
                 'message'=>$e->getMessage(),
-            ], $e->getCode());
+            ], $e->getCode() ?: 500);
         }
     }
 
