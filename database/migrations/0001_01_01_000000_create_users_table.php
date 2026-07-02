@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name', 80);   //tipo dato string ('nombre_tabla', cantidad de caracteres permitidos)
-            $table->string('last_name', 100);
+            $table->string('last_name', 100)->nullable();
             $table->string('email')->unique();   //string por defecto tiene 255 caracteres, la tabla se llama mail y ->unique() siginifa q es un valor unico en la tabla
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone', 20)->nullable();
             $table->string('profile_photo', 500)->nullable();
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
             $table->enum('status', ['active','suspended','delete'])->default('active');
             $table->char('otp_code', 4)->nullable();
             $table->dateTime('otp_expires_at')->nullable();

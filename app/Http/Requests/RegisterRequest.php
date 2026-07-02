@@ -29,8 +29,8 @@ class RegisterRequest extends FormRequest
                 'max:80'
             ],
             'last_name' =>[
+                'nullable',
                 'string',
-                'required',
                 'max:80'
             ],
             'email'=>[
@@ -52,8 +52,8 @@ class RegisterRequest extends FormRequest
                 'string'
             ],
             'birth_date'=>[
+                'nullable',
                 'date',
-                'required'
             ]
         ];
     }

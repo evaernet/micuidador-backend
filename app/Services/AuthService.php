@@ -14,11 +14,11 @@ class AuthService{
         (
             [
             'name'=>$data['name'],                   //'name' => $data['name'] toma el valor validado en el request--- ESTO VIENE DESDE ***request->validated()***
-            'last_name'=>$data['last_name'],
+            'last_name'=>$data['last_name'] ?? null,
             'email'=>$data['email'],
             'password'=>$data['password'],
             'phone'=>$data['phone'] ?? null,     //si existe toma 'phone' sino null
-            'birth_date'=>$data['birth_date'],
+            'birth_date'=>$data['birth_date'] ?? null,
             'status'=>'active',                 //El usuario no decide esto
             'otp_code'=>rand(1000,9999),        //el backend controla estados intermos
             'otp_expires_at'=> now()->addMinutes(5)
