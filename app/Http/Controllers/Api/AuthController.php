@@ -7,8 +7,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;    //Importamos mi clase de validacion, entonces podemos hacer RegisterRequest $request. Para que mi controller reciba datos limpios
 use App\Services\AuthService;       //Importamos mi clase de logica de nogocio
-use Exception;
-
+use App\Http\Requests\RegisterRequestCaraker;
 
 class AuthController extends Controller
 {
@@ -55,6 +54,21 @@ class AuthController extends Controller
             'message' => 'Session cerrada correctamnete'
         ], 200);
     }
+
+    public function registerCaraker(RegisterRequestCaraker $request)
+{
+    $resultado = $this->authservice->registerCuidador(
+        $request->validated(),
+        $request->file('foto_perfil'),
+        $request->file('foto_hospedaje')
+    );
+
+    return response()->json([
+        'message' => 'Cuidador registrado correctamente',
+        'user' => $resultado['user'],
+        'perfil' => $resultado['perfil'],
+    ], 201);
+}
 
 
 }

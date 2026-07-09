@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\CarakerProfile;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;   //Esto importamos para poder usar las clases Auth para comparar password con hash guardada en la base Es el sistema de autenticación. Sabe cómo comparar una password con su hash
 
@@ -83,6 +84,42 @@ class AuthService{
         lo manda en cada request siguiente*/
 
     }
+
+
+
+public function registerCuidador(array $data, $fotoPerfil = null, $fotoHospedaje = null)
+{
+    $rutaFotoPerfil = $fotoPerfil ? $fotoPerfil->store('perfiles', 'public') : null;
+    $rutaFotoHospedaje = $fotoHospedaje ? $fotoHospedaje->store('hospedajes', 'public') : null;
+
+    $user = User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => $data['password'],
+        'phone' => $data['phone'] ?? null,
+        'profile_photo' => $rutaFotoPerfil,
+        'status' => 'active',
+        'otp_code' => rand(1000, 9999),
+        'otp_expires_at' => now()->addMinutes(5),
+    ]);
+
+    $user->assignRole('cuidador'); // se suma al rol, no reemplaza
+
+    $perfil = CarakerProfile::create([
+        'user_id' => $user->id,
+        'vivienda' => $data['vivienda'],
+        'foto_hospedaje' => $rutaFotoHospedaje,
+        'descripcion' => $data['descripcion'] ?? null,
+        'mascotas_propias' => $data['mascotas_propias'] ?? null,
+        'acepta_perro' => $data['acepta_perro'] ?? false,
+        'acepta_gato' => $data['acepta_gato'] ?? false,
+        'tamanos_aceptados' => $data['tamanos_aceptados'] ?? [],
+        'experiencia' => $data['experiencia'] ?? null,
+        'declaracion' => $data['declaracion'] ?? false,
+    ]);
+
+    return ['user' => $user, 'perfil' => $perfil];
+}
 
 }
 

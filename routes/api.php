@@ -15,4 +15,6 @@ Route::post('/register', [AuthController::class, 'register']);  //AuthController
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::post('/register/cuidador', [AuthController::class, 'registerCaraker']);
+
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);

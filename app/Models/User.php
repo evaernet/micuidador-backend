@@ -53,4 +53,9 @@ class User extends Authenticatable
             'birth_date'=>'date'
         ];
     }
+
+    public function cuidadorProfile()
+{
+    return $this->hasOne(CarakerProfile::class);
+}
 }
