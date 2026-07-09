@@ -8,11 +8,12 @@ use Laravel\Sanctum\HasApiTokens;   //Importo para poder usar sanctum tokens
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;   //Aca tambien agrego HasApiTokens le da a users capacidad de crear tokens $user->createToken()
+    use HasFactory, Notifiable, HasApiTokens,HasRoles;   //Aca tambien agrego HasApiTokens le da a users capacidad de crear tokens $user->createToken()
 
     /**
      * The attributes that are mass assignable.

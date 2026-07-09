@@ -24,6 +24,8 @@ class AuthService{
             'otp_expires_at'=> now()->addMinutes(5)
             ]
         );
+        $user->assignRole('owner');  // ← acá, después de crear el usuario
+
         return ['user' => $user];      //Devuelve el usuario recien creado
     }
 

@@ -14,3 +14,5 @@ Route::post('/register', [AuthController::class, 'register']);  //AuthController
 //Osea cuando alguien haga POST a /resgiter, ejecuta ese metodo del controller
 
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
