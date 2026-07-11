@@ -58,4 +58,9 @@ class User extends Authenticatable
 {
     return $this->hasOne(CarakerProfile::class);
 }
+
+public function pets()
+{
+    return $this->hasMany(Pet::class);
+}
 }

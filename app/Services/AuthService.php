@@ -58,9 +58,10 @@ class AuthService{
           //  → Te da el token en texto plano para mandárselo al usuario
           //  → Ejemplo: "3|kLmN9xPqR7vWzYt..."   
 
-        return[
+               return[
             'user' =>$user,
             'token'=>$token,
+            'role' => $user->getRoleNames()->first(), // 'owner' o 'cuidador'
         ];
 
 

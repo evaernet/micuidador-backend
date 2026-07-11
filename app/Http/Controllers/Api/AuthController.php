@@ -33,10 +33,11 @@ class AuthController extends Controller
         try{
             $result = $this->authservice->login($request->validated());
 
-            return Response()->json([
+                        return Response()->json([
                 'message'=>'Login Succesfull',
                 'user'=> $result['user'],
-                'token'=>$result['token']
+                'token'=>$result['token'],
+                'role'=>$result['role'],
             ], 200);
 
         }catch(\Exception $e){
