@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Pet;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class PetService
 {
@@ -22,6 +23,24 @@ class PetService
             'nota' => $data['nota'] ?? null,
             'foto' => $rutaFoto,
         ]);
+    }
+
+    public function actualizar(User $user, Pet $pet, array $data, $foto = null): Pet
+    {
+        if ($pet->user_id !== $user->id) {
+            throw new \Exception('No autorizado', 403);
+        }
+
+        if ($foto) {
+            if ($pet->foto) {
+                Storage::disk('public')->delete($pet->foto);
+            }
+            $data['foto'] = $foto->store('pets', 'public');
+        }
+
+        $pet->update($data);
+
+        return $pet;
     }
 
     public function eliminar(User $user, Pet $pet): void

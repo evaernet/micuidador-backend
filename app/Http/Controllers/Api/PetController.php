@@ -33,6 +33,22 @@ class PetController extends Controller
         return response()->json(['pet' => $pet], 201);
     }
 
+    public function update(PetRequest $request, Pet $pet)
+    {
+        try {
+            $pet = $this->petService->actualizar(
+                $request->user(),
+                $pet,
+                $request->validated(),
+                $request->file('foto')
+            );
+
+            return response()->json(['pet' => $pet]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], $e->getCode() ?: 500);
+        }
+    }
+
     public function destroy(Request $request, Pet $pet)
     {
         try {

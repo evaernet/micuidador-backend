@@ -18,10 +18,13 @@ class RegisterRequestCaraker extends FormRequest
             'name' => ['required', 'string', 'max:80'],
             'email' => ['required', 'string', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['nullable', 'string', 'min:8', 'max:30'],
+            'phone' => ['required', 'string', 'min:8', 'max:30'],
             'foto_perfil' => ['nullable', 'image', 'max:5120'], // 5MB
 
             // ---- hospedaje ----
+            'nombre_hospedaje' => ['required', 'string', 'max:100'],
+            'ubicacion' => ['required', 'string', 'max:150'],
+            'precio_base' => ['required', 'numeric', 'min:0'],
             'vivienda' => ['required', 'in:casa_patio,casa,quinta,depto'],
             'foto_hospedaje' => ['nullable', 'image', 'max:5120'],
             'descripcion' => ['nullable', 'string'],

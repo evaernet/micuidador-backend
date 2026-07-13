@@ -10,6 +10,9 @@ class CarakerProfile extends Model
 {
     protected $fillable = [   //permite llenar cuando creo un cuidador o al atulizar - esto evita que alguien puedo rellenar campos que manejamos internamente
         'user_id',
+        'nombre',
+        'ubicacion',
+        'precio_base',
         'vivienda',
         'foto_hospedaje',
         'descripcion',
@@ -27,8 +30,8 @@ class CarakerProfile extends Model
     {
         return [
             'tamanos_aceptados' => 'array', //Laravel convierte json a array o array a json SOLO
-            'acepta_perros' => 'boolean',
-            'acepta_gatos' => 'boolean',
+            'acepta_perro' => 'boolean',
+            'acepta_gato' => 'boolean',
             'declaracion' => 'boolean'
         ];
 

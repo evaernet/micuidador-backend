@@ -27,7 +27,15 @@ class AuthService{
         );
         $user->assignRole('owner');  // ← acá, después de crear el usuario
 
-        return ['user' => $user];      //Devuelve el usuario recien creado
+        // Igual que en login(): generamos el token para que el front pueda
+        // guardar la sesión sin tener que loguearse de nuevo después de registrarse.
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return [
+            'user' => $user,
+            'token' => $token,
+            'role' => $user->getRoleNames()->first(),
+        ];
     }
 
 
@@ -108,6 +116,9 @@ public function registerCuidador(array $data, $fotoPerfil = null, $fotoHospedaje
 
     $perfil = CarakerProfile::create([
         'user_id' => $user->id,
+        'nombre' => $data['nombre_hospedaje'],
+        'ubicacion' => $data['ubicacion'],
+        'precio_base' => $data['precio_base'],
         'vivienda' => $data['vivienda'],
         'foto_hospedaje' => $rutaFotoHospedaje,
         'descripcion' => $data['descripcion'] ?? null,
